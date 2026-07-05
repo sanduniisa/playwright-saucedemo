@@ -15,9 +15,13 @@ test('standard user can loginto saucedemo',async({page})=>{
 });
 
 test('locked out user sees an error message', async ({ page }) => {
+  // navigate to the URL 
   await page.goto('https://www.saucedemo.com/');
+  //enter user name
   await page.locator('[data-test="username"]').fill('locked_out_user');
+  // enter password
   await page.locator('[data-test="password"]').fill('secret_sauce');
+  //click login 
   await page.locator('[data-test="login-button"]').click();
 
   const error = page.locator('[data-test="error"]');
@@ -25,3 +29,4 @@ test('locked out user sees an error message', async ({ page }) => {
   await expect(error).toBeVisible();
   await expect(error).toContainText('Epic sadface: Sorry, this user has been locked out.');
 });
+
